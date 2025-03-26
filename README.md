@@ -46,84 +46,6 @@ After discussions among group members, we explored various applications of compu
 ![1731670028062](https://github.com/user-attachments/assets/9c38f35b-6608-4109-a8aa-20fffa41e3b0)
 
 
-## Sample Core Code
-
-### Image Folder Storage
-```python
-def read(n):
-    na = n
-    faceDataPath = 'faceData/' + na
-    max_num = 100  # Maximum number of captured faces
-    faceDataPath_absPath = os.path.abspath(os.path.join(os.getcwd(), faceDataPath))
-    
-    print('Capturing face, writing', faceDataPath_absPath, 'folder')
-    if not os.path.exists(os.path.join(os.getcwd(), faceDataPath)):
-        os.mkdir(os.path.join(os.getcwd(), faceDataPath))
-cap = cv2.VideoCapture(camera)  # open camera
-classifier = cv2.CascadeClassifier('cv2_data/haarcascade_frontalface_alt.xml')  # Load classifier
-color = (0, 255, 0)  # Face rectangle color
-num = 0  # Number of stored images
-
-while cap.isOpened():
-    ok, frame = cap.read()  # Read input
-    if not ok:
-        print("no sign input, please check your camera")
-        break
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # Grayscale conversion
-    faceRects = classifier.detectMultiScale(gray, scaleFactor=1.2, minNeighbors=3, minSize=(32, 32))
-    if len(faceRects) > 0:
-        for faceRect in faceRects:
-            x, y, w, h = faceRect
-            image_name = '%s%d.jpg' % (path_name, num)
-            image = frame[y:y + h, x:x + w]
-            cv2.imwrite(image_name, image)
-            num += 1
-            if num > max_num:
-                break
-        cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
-        cv2.imshow(window_name, frame)
-        if cv2.waitKey(10) == 27:  # ESC to exit
-            break
-
-  ```
-
-  ### Face Detection and Storage
-  ```python
-  cap = cv2.VideoCapture(camera)  # open camera
-    classifier = cv2.CascadeClassifier('cv2_data/haarcascade_frontalface_alt.xml')# Load the classifier, the classifier that comes with OpenCV
-    color = (0, 255, 0)  # The color of the face rectangular frame, green
-    num = 0  # Record the number of stored pictures
-    while cap.isOpened():
-        ok, frame = cap.read()#Check if there is an input signal        if not ok:
-            print("no sign input ,please check your camera")
-            break
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)  # grayscale
-        faceRects = classifier.detectMultiScale(gray, scaleFactor=1.2,minNeighbors=3, minSize=(32, 32))
-
-        if len(faceRects) > 0:
-            for faceRect in faceRects:
-                x, y, w, h = faceRect
-                # The name of the captured image. The formatted string output is used here.
-                image_name = '%s%d.jpg' % (path_name, num)
-                image = frame[y:y + h, x:x + w]  # Save the face part of the current frame as a picture. The access here is from the y position to the y+h-1 position.             
-   cv2.imwrite(image_name, image)
-                num += 1
-                # Exit the loop when the specified maximum number of saves is exceeded.
-                if num > max_num:
-                    break
-                cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)  # Draw a rectangular frame
-                font = cv2.FONT_HERSHEY_SIMPLEX  # Get the built-in font
-                cv2.putText(frame, ('%d' % num), (x + 30, y + 30), font, 1, (255, 0, 255),
-                            4)  # Call the function to add a rectangular frame to the face coordinate position to display how many face images are currently captured.
-        if num > max_num:
-            break
-        cv2.imshow(window_name, frame)
-        c = cv2.waitKey(10)
-        if c == 27:  #ESC Exit capture
-            break
-
-   ```
-
 ## Neural Network Training Results
 After numerous training attempts, it was observed that the loss and validation values did not change around 40,000 training iterations. Therefore, the training was set to 40,000 iterations. 
 
@@ -162,10 +84,5 @@ The display method of face detection is to frame the face on the input video, an
 15. Michel, P., & El Kaliouby, R. (2003). Real-time facial expression recognition in video using support vector machines.
 16. Khan, S., et al. (2020). Real-time automatic attendance system for face recognition using OpenCV.17. Santos, C. F. G. D., & Papa, J. P. (2022). Avoiding overfitting in CNNs: A survey on regularization methods.
 
-## Team Division
-- Wang Haotian: Program architecture design and UI
-- Xie Haohua: Login function and database implementation
-- Hong Zhiyi: Face capture, model training, face recognition,database improvement,material writing and uploading
-- Yu Liwei, Zhao Wenqing: Overall planning, report, and documentation
 
 
