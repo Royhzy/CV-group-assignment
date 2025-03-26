@@ -2,8 +2,6 @@
 
 # README
 
-Editor：Zhiyi Hong
-
 YouTube Link: [https://youtu.be/5OtfIvx2wzE](https://www.youtube.com/watch?v=5OtfIvx2wzE)
 
 # Study Room Face Recognition System
