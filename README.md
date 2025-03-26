@@ -2,8 +2,6 @@
 
 # README
 
-Group members：Zhiyi Hong,Haotian Wang,Wenqing Zhao,Liwei Yu,Haohua Xie
-
 Editor：Zhiyi Hong
 
 YouTube Link: [https://youtu.be/5OtfIvx2wzE](https://www.youtube.com/watch?v=5OtfIvx2wzE)
